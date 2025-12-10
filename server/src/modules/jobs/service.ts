@@ -1,5 +1,6 @@
 import { db } from '../../../database';
 import { job } from '../../../database/schema';
+import type { JobsModel } from './model';
 
 export abstract class JobsServices {
   static async all() {
@@ -14,11 +15,7 @@ export abstract class JobsServices {
     });
   }
 
-  static async store(new_job, user_id: string) {
-    return await db
-      .insert(job)
-      .values({ createdBy: user_id, ...new_job })
-      .returning()
-      .get();
+  static async store(new_job: JobsModel.NewJob) {
+    return await db.insert(job).values(new_job).returning().get();
   }
 }
