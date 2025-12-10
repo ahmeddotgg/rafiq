@@ -16,7 +16,7 @@ dist
 .cache
 *.tsbuildinfo
 .vercel
-.tanst
+.tanstack
 
 # IDEs
 .idea
