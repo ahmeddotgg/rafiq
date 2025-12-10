@@ -2,9 +2,7 @@
   "version": "7",
   "dialect": "sqlite",
   "id": "bdda666c-ff72-4078-a5b4-8c3384f22dfa",
-  "prevIds": [
-    "00000000-0000-0000-0000-000000000000"
-  ],
+  "prevIds": ["00000000-0000-0000-0000-000000000000"],
   "ddl": [
     {
       "name": "jobs",
@@ -235,36 +233,28 @@
       "table": "users"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "jobs_pk",
       "table": "jobs",
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "users_pk",
       "table": "users",
       "entityType": "pks"
     },
     {
-      "columns": [
-        "username"
-      ],
+      "columns": ["username"],
       "nameExplicit": false,
       "name": "users_username_unique",
       "entityType": "uniques",
       "table": "users"
     },
     {
-      "columns": [
-        "email"
-      ],
+      "columns": ["email"],
       "nameExplicit": false,
       "name": "users_email_unique",
       "entityType": "uniques",
