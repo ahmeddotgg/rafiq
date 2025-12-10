@@ -1,5 +1,8 @@
 import { Elysia } from 'elysia';
+import { jobs } from './modules/jobs';
 
-const app = new Elysia().get('/', () => 'Hello Elysia').listen(5000);
+const app = new Elysia({ prefix: '/api', strictPath: false }).use(jobs);
 
-console.log(`🦊 Elysia is running at ${app.server?.url}`);
+app.listen(process.env.PORT!, () => {
+  console.log(`🦊 Elysia is running at ${app.server?.url}`);
+});

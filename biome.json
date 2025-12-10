@@ -43,6 +43,12 @@
       },
       "suspicious": {
         "noArrayIndexKey": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "off"
+      },
+      "complexity": {
+        "noStaticOnlyClass": "off"
       }
     }
   }
