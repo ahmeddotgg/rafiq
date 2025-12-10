@@ -2,14 +2,21 @@
   "name": "server",
   "version": "1.0.50",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "db:generate": "bun x drizzle-kit generate",
+    "db:migrate": "bun x drizzle-kit migrate",
+    "db:seed": "bun run database/seed.ts"
   },
   "dependencies": {
+    "@faker-js/faker": "^10.1.0",
+    "@libsql/client": "^0.15.15",
+    "@paralleldrive/cuid2": "^3.0.4",
+    "drizzle-orm": "^1.0.0-beta.2-58a4521",
     "elysia": "latest"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "drizzle-kit": "^1.0.0-beta.2-58a4521"
   },
   "module": "src/index.js"
 }
