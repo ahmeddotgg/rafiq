@@ -8,7 +8,12 @@
     }
   },
   "files": {
-    "includes": ["**", "!**/src/routeTree.gen.ts", "!**/bun.lock"],
+    "includes": [
+      "**",
+      "!**/src/routeTree.gen.ts",
+      "!**/bun.lock",
+      "!**/migrations"
+    ],
     "ignoreUnknown": true
   },
   "vcs": {
