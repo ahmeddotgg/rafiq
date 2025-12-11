@@ -1,5 +1,5 @@
 import { db } from '../../../database';
-import { job } from '../../../database/schema';
+import { tables } from '../../../database/schema';
 import { DatabaseErr, NotFoundErr } from '../../lib/errors';
 import type { JobsModel } from './model';
 
@@ -29,7 +29,11 @@ export abstract class JobsServices {
 
   static async store(newJob: JobsModel.createJobSchema) {
     try {
-      const result = await db.insert(job).values(newJob).returning().get();
+      const result = await db
+        .insert(tables.job)
+        .values(newJob)
+        .returning()
+        .get();
 
       if (!result) {
         throw new DatabaseErr('Insert returned no data');

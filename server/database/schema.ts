@@ -11,7 +11,7 @@ const timestamps = {
   deletedAt: text('deleted_at')
 };
 
-export const user = sqliteTable('users', {
+const user = sqliteTable('users', {
   ...timestamps,
   id: text()
     .$defaultFn(() => createId())
@@ -21,7 +21,7 @@ export const user = sqliteTable('users', {
   email: text().notNull().unique()
 });
 
-export const job = sqliteTable('jobs', {
+const job = sqliteTable('jobs', {
   ...timestamps,
   id: text()
     .$defaultFn(() => createId())
@@ -39,3 +39,8 @@ export const job = sqliteTable('jobs', {
   interviewDate: text('interview_date'),
   interviewType: text('interview_type')
 });
+
+export const tables = {
+  job,
+  user
+};

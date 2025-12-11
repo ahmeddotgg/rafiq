@@ -22,10 +22,8 @@ const app = new Elysia({ prefix: '/api', strictPath: false })
     }
 
     if (error instanceof NotFoundErr || error instanceof DatabaseErr) {
-      // Handle custom errors
       set.status = error.status;
 
-      // Log the underlying cause if it exists
       if (error.cause) {
         console.error(`${error.name}:`, error.cause);
       }
@@ -35,7 +33,6 @@ const app = new Elysia({ prefix: '/api', strictPath: false })
       };
     }
 
-    // Unknown errors
     console.error('Unhandled error:', error);
     set.status = 500;
     return {

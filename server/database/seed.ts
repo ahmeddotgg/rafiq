@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { db } from './';
-import { job, user } from './schema';
+import { tables } from './schema';
 
 async function main() {
   console.log('🌱 Seeding database...');
@@ -10,7 +10,7 @@ async function main() {
     email: faker.internet.email().toLowerCase(),
     password: faker.internet.password({ length: 12 })
   }));
-  await db.insert(user).values(users);
+  await db.insert(tables.user).values(users);
   console.log('👤 Users seeded:', users.length);
 
   enum JobStage {
@@ -35,7 +35,7 @@ async function main() {
     salary: faker.number.int({ min: 10, max: 100000 }),
     type: faker.helpers.enumValue(JobType).toString()
   }));
-  await db.insert(job).values(jobs);
+  await db.insert(tables.job).values(jobs);
   console.log('💡 Ideas seeded:', jobs.length);
 }
 
