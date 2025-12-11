@@ -1,41 +1,34 @@
 import { faker } from '@faker-js/faker';
 import { db } from './';
-import { tables } from './schema';
+import * as schema from './schema';
 
 async function main() {
   console.log('🌱 Seeding database...');
 
-  const users = Array.from({ length: 5 }).map(() => ({
+  const users: (typeof schema.user.$inferInsert)[] = Array.from({
+    length: 5
+  }).map(() => ({
     username: faker.internet.username(),
     email: faker.internet.email().toLowerCase(),
     password: faker.internet.password({ length: 12 })
   }));
-  await db.insert(tables.user).values(users);
+  await db.insert(schema.user).values(users);
   console.log('👤 Users seeded:', users.length);
 
-  enum JobStage {
-    Saved = 'Saved',
-    Applied = 'Applied',
-    Interview = 'Interview',
-    Offer = 'Offer'
-  }
-  enum JobType {
-    Remote = 'Remote',
-    OnSite = 'On-site',
-    Hybrid = 'Hybrid'
-  }
-  const jobs = Array.from({ length: 10 }).map(() => ({
+  const jobs: (typeof schema.job.$inferInsert)[] = Array.from({
+    length: 10
+  }).map(() => ({
     createdBy: 'TEST_USER_ID',
     company: faker.company.name(),
     position: faker.person.jobTitle(),
     companyUrl: faker.internet.url(),
     location: `${faker.location.city()}, ${faker.location.county()}`,
-    stage: faker.helpers.enumValue(JobStage).toString(),
     applicationUrl: faker.internet.url(),
     salary: faker.number.int({ min: 10, max: 100000 }),
-    type: faker.helpers.enumValue(JobType).toString()
+    stage: 'Applied',
+    type: 'Remote'
   }));
-  await db.insert(tables.job).values(jobs);
+  await db.insert(schema.job).values(jobs);
   console.log('💡 Ideas seeded:', jobs.length);
 }
 

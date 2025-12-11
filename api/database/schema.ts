@@ -1,27 +1,24 @@
 import { createId } from '@paralleldrive/cuid2';
-import { sql } from 'drizzle-orm';
-import { int, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
 const timestamps = {
-  createdAt: text('created_at').notNull().default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: text('updated_at')
-    .notNull()
-    .default(sql`CURRENT_TIMESTAMP`)
-    .$onUpdate(() => sql`CURRENT_TIMESTAMP`),
-  deletedAt: text('deleted_at')
+  createdAt: integer('created_at', { mode: 'timestamp' }).default(new Date()),
+  updatedAt: integer('updated_at', { mode: 'timestamp' }).default(new Date()),
+  deletedAt: integer('deleted_at', { mode: 'timestamp' })
 };
 
-const user = sqliteTable('users', {
+export const user = sqliteTable('users', {
   ...timestamps,
   id: text()
     .$defaultFn(() => createId())
     .primaryKey(),
+
   username: text().notNull().unique(),
   password: text().notNull(),
   email: text().notNull().unique()
 });
 
-const job = sqliteTable('jobs', {
+export const job = sqliteTable('jobs', {
   ...timestamps,
   id: text()
     .$defaultFn(() => createId())
@@ -31,16 +28,11 @@ const job = sqliteTable('jobs', {
   company: text().notNull(),
   position: text().notNull(),
   location: text().notNull(),
-  stage: text().notNull(),
-  salary: int(),
-  type: text(),
+  stage: text({ enum: ['Saved', 'Applied', 'Interview', 'Offer'] }).notNull(),
+  type: text({ enum: ['On-site', 'Hybrid', 'Remote'] }),
+  salary: integer(),
   companyUrl: text('company_url'),
   applicationUrl: text('application_url'),
   interviewDate: text('interview_date'),
   interviewType: text('interview_type')
 });
-
-export const tables = {
-  job,
-  user
-};

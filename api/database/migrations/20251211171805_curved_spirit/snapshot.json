@@ -1,8 +1,10 @@
 {
   "version": "7",
   "dialect": "sqlite",
-  "id": "bdda666c-ff72-4078-a5b4-8c3384f22dfa",
-  "prevIds": ["00000000-0000-0000-0000-000000000000"],
+  "id": "2379cec3-8fb3-4185-9b75-0d80142fcb6c",
+  "prevIds": [
+    "00000000-0000-0000-0000-000000000000"
+  ],
   "ddl": [
     {
       "name": "jobs",
@@ -13,27 +15,27 @@
       "entityType": "tables"
     },
     {
-      "type": "text",
-      "notNull": true,
+      "type": "integer",
+      "notNull": false,
       "autoincrement": false,
-      "default": "CURRENT_TIMESTAMP",
+      "default": "1765473485",
       "generated": null,
       "name": "created_at",
       "entityType": "columns",
       "table": "jobs"
     },
     {
-      "type": "text",
-      "notNull": true,
+      "type": "integer",
+      "notNull": false,
       "autoincrement": false,
-      "default": "CURRENT_TIMESTAMP",
+      "default": "1765473485",
       "generated": null,
       "name": "updated_at",
       "entityType": "columns",
       "table": "jobs"
     },
     {
-      "type": "text",
+      "type": "integer",
       "notNull": false,
       "autoincrement": false,
       "default": null,
@@ -103,22 +105,22 @@
       "table": "jobs"
     },
     {
-      "type": "integer",
-      "notNull": false,
-      "autoincrement": false,
-      "default": null,
-      "generated": null,
-      "name": "salary",
-      "entityType": "columns",
-      "table": "jobs"
-    },
-    {
       "type": "text",
       "notNull": false,
       "autoincrement": false,
       "default": null,
       "generated": null,
       "name": "type",
+      "entityType": "columns",
+      "table": "jobs"
+    },
+    {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "salary",
       "entityType": "columns",
       "table": "jobs"
     },
@@ -163,27 +165,27 @@
       "table": "jobs"
     },
     {
-      "type": "text",
-      "notNull": true,
+      "type": "integer",
+      "notNull": false,
       "autoincrement": false,
-      "default": "CURRENT_TIMESTAMP",
+      "default": "1765473485",
       "generated": null,
       "name": "created_at",
       "entityType": "columns",
       "table": "users"
     },
     {
-      "type": "text",
-      "notNull": true,
+      "type": "integer",
+      "notNull": false,
       "autoincrement": false,
-      "default": "CURRENT_TIMESTAMP",
+      "default": "1765473485",
       "generated": null,
       "name": "updated_at",
       "entityType": "columns",
       "table": "users"
     },
     {
-      "type": "text",
+      "type": "integer",
       "notNull": false,
       "autoincrement": false,
       "default": null,
@@ -233,28 +235,36 @@
       "table": "users"
     },
     {
-      "columns": ["id"],
+      "columns": [
+        "id"
+      ],
       "nameExplicit": false,
       "name": "jobs_pk",
       "table": "jobs",
       "entityType": "pks"
     },
     {
-      "columns": ["id"],
+      "columns": [
+        "id"
+      ],
       "nameExplicit": false,
       "name": "users_pk",
       "table": "users",
       "entityType": "pks"
     },
     {
-      "columns": ["username"],
+      "columns": [
+        "username"
+      ],
       "nameExplicit": false,
       "name": "users_username_unique",
       "entityType": "uniques",
       "table": "users"
     },
     {
-      "columns": ["email"],
+      "columns": [
+        "email"
+      ],
       "nameExplicit": false,
       "name": "users_email_unique",
       "entityType": "uniques",
