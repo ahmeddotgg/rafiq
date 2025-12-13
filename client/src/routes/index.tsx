@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
+import { ThemeSwitcher } from '@/components/shared/theme-switcher';
 import { buttonVariants } from '@/components/ui/button';
 
 export const Route = createFileRoute('/')({
@@ -7,9 +8,10 @@ export const Route = createFileRoute('/')({
 
 function RouteComponent() {
   return (
-    <div>
+    <div className="flex items-center">
+      <ThemeSwitcher />
       <Link to="/dashboard" className={buttonVariants()}>
-        Dashboard
+        Dasboard
       </Link>
     </div>
   );

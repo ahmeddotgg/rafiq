@@ -1,6 +1,11 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 import Cookies from 'js-cookie';
-import { SidebarProvider } from '@/components/ui/sidebar';
+import { ThemeSwitcher } from '@/components/shared/theme-switcher';
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger
+} from '@/components/ui/sidebar';
 import { DashboardSidebar } from './-components/sidebar';
 
 export const Route = createFileRoute('/dashboard')({
@@ -13,7 +18,11 @@ function RouteComponent() {
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
       <DashboardSidebar />
-      <Outlet />
+      <SidebarInset>
+        <SidebarTrigger />
+        <ThemeSwitcher />
+        <Outlet />
+      </SidebarInset>
     </SidebarProvider>
   );
 }
