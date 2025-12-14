@@ -1,21 +1,23 @@
-import { Hono } from 'hono';
-import { zValidator } from '@/src/lib/validator-wrapper';
-import { JobsModel } from './model';
+import { OpenAPIHono } from '@hono/zod-openapi';
+import { createJobRoute, getAllJobsRoute, getJobByIdRoute } from './openapi';
 import { JobsServices } from './service';
 
-export const jobs = new Hono();
+export const jobs = new OpenAPIHono();
 
-jobs.get('/', async (c) => {
-  const jobs = await JobsServices.all();
+jobs.openapi(getAllJobsRoute, async (c) => {
+  const allJobs = await JobsServices.all();
 
-  return c.json({
-    info: 'success',
-    data: jobs
-  });
+  return c.json(
+    {
+      info: 'success',
+      data: allJobs
+    },
+    200
+  );
 });
 
-jobs.get('/:id', async (c) => {
-  const id = c.req.param('id');
+jobs.openapi(getJobByIdRoute, async (c) => {
+  const { id } = c.req.valid('param');
   const job = await JobsServices.find(id);
 
   if (!job) {
@@ -28,29 +30,41 @@ jobs.get('/:id', async (c) => {
     );
   }
 
-  return c.json({
-    info: 'success',
-    data: job
-  });
+  return c.json(
+    {
+      info: 'success',
+      data: job
+    },
+    200
+  );
 });
 
-jobs.post(
-  '/',
-  zValidator(
-    'json',
-    JobsModel.insertJobSchema.omit({
-      createdAt: true,
-      updatedAt: true,
-      deletedAt: true,
-      id: true
-    })
-  ),
-  (c) => {
+jobs.openapi(
+  createJobRoute,
+  async (c) => {
     const data = c.req.valid('json');
 
-    return c.json({
-      info: 'success',
-      data: data
-    });
+    return c.json(
+      {
+        info: 'success',
+        data: data
+      },
+      200
+    );
+  },
+  (result, c) => {
+    if (!result.success) {
+      return c.json(
+        {
+          info: 'validation error',
+          errors: result.error.issues.map((issue) => ({
+            code: issue.code,
+            message: issue.message,
+            path: issue.path.map(String).toString()
+          }))
+        },
+        422
+      );
+    }
   }
 );

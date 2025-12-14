@@ -1,14 +1,21 @@
+import {
+  DashboardSquare03Icon,
+  JobSearchIcon
+} from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import { Link } from '@tanstack/react-router';
 import { useEffect } from 'react';
-import { buttonVariants } from '@/components/ui/button';
 import {
   Sidebar,
   SidebarContent,
+  SidebarGroup,
   SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   useSidebar
 } from '@/components/ui/sidebar';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { cn } from '@/lib/utils';
 
 export function DashboardSidebar() {
   const { setOpenMobile } = useSidebar();
@@ -21,24 +28,56 @@ export function DashboardSidebar() {
   return (
     <Sidebar collapsible="offExamples" variant="inset">
       <SidebarHeader>
-        <Link
-          activeOptions={{ includeSearch: false, exact: true }}
-          to="/"
-          className={cn(
-            buttonVariants({
-              variant: 'ghost',
-              className: 'h-auto justify-start p-2!'
-            }),
-            'font-black font-mono'
-          )}
-        >
-          <img src="/logo.svg" alt="" className="size-10" />
-          <h1 className="bg-linear-to-r from-blue-500 to-indigo-500 bg-clip-text pe-1 text-4xl text-transparent">
-            RAFIQ
-          </h1>
-        </Link>
+        <SidebarMenuButton
+          size="default"
+          className="h-auto w-fit rounded-full p-1.5!"
+          render={
+            <Link to="/">
+              <img src="/logo.svg" alt="" className="size-10" />
+            </Link>
+          }
+        />
       </SidebarHeader>
-      <SidebarContent className="p-2"></SidebarContent>
+
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                size="lg"
+                className="rounded-full px-4 font-medium text-[15px] tracking-wide [&.active]:bg-primary/10 [&.active]:text-primary [&.active]:hover:bg-primary/20 [&_svg]:size-[18px]"
+                render={
+                  <Link
+                    to="/dashboard"
+                    activeOptions={{ exact: true, includeSearch: false }}
+                  >
+                    <HugeiconsIcon
+                      icon={DashboardSquare03Icon}
+                      strokeWidth={2.6}
+                    />
+                    <span>Dashboard</span>
+                  </Link>
+                }
+              />
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                size="lg"
+                className="rounded-full px-4 font-medium text-[15px] tracking-wide [&.active]:bg-primary/10 [&.active]:text-primary [&.active]:hover:bg-primary/20 [&_svg]:size-[18px]"
+                render={
+                  <Link
+                    to="/dashboard/jobs"
+                    activeOptions={{ exact: true, includeSearch: false }}
+                  >
+                    <HugeiconsIcon icon={JobSearchIcon} strokeWidth={2.6} />
+                    <span>Jobs</span>
+                  </Link>
+                }
+              />
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
     </Sidebar>
   );
 }

@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { buttonVariants } from '@/components/ui/button';
-import { ThemeProvider, ThemeProviderContext } from '@/store/theme';
+import { ThemeProvider } from '@/store/theme';
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;

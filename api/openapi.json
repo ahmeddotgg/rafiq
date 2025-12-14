@@ -1,0 +1,325 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Jobs API"
+  },
+  "components": {
+    "schemas": {
+      "Job": {
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": ["string", "null"],
+            "format": "date"
+          },
+          "updatedAt": {
+            "type": ["string", "null"],
+            "format": "date"
+          },
+          "deletedAt": {
+            "type": ["string", "null"],
+            "format": "date"
+          },
+          "id": {
+            "type": "string"
+          },
+          "createdBy": {
+            "type": "string"
+          },
+          "company": {
+            "type": "string"
+          },
+          "position": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "stage": {
+            "type": "string",
+            "enum": ["Saved", "Applied", "Interview", "Offer"]
+          },
+          "type": {
+            "type": ["string", "null"],
+            "enum": ["On-site", "Hybrid", "Remote"]
+          },
+          "salary": {
+            "type": ["integer", "null"],
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "companyUrl": {
+            "type": ["string", "null"]
+          },
+          "applicationUrl": {
+            "type": ["string", "null"]
+          },
+          "interviewDate": {
+            "type": ["string", "null"]
+          },
+          "interviewType": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "createdAt",
+          "updatedAt",
+          "deletedAt",
+          "id",
+          "createdBy",
+          "company",
+          "position",
+          "location",
+          "stage",
+          "type",
+          "salary",
+          "companyUrl",
+          "applicationUrl",
+          "interviewDate",
+          "interviewType"
+        ]
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "info": {
+            "type": "string",
+            "example": "error"
+          },
+          "error": {
+            "type": "string",
+            "example": "Job not found"
+          }
+        },
+        "required": ["info", "error"]
+      },
+      "Success": {
+        "type": "object",
+        "properties": {
+          "info": {
+            "type": "string",
+            "example": "success"
+          },
+          "data": {
+            "description": "Response data"
+          }
+        },
+        "required": ["info"]
+      },
+      "UnauthorizedError": {
+        "type": "object",
+        "properties": {
+          "info": {
+            "type": "string",
+            "example": "error"
+          },
+          "error": {
+            "type": "string",
+            "example": "Unauthorized"
+          }
+        },
+        "required": ["info", "error"]
+      },
+      "ValidationError": {
+        "type": "object",
+        "properties": {
+          "info": {
+            "type": "string",
+            "example": "validation error"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "example": "invalid_type"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Required"
+                },
+                "path": {
+                  "type": "string",
+                  "example": ["company"]
+                }
+              },
+              "required": ["code", "message", "path"]
+            },
+            "description": "Validation errors"
+          }
+        },
+        "required": ["info", "errors"]
+      },
+      "CreateJob": {
+        "type": "object",
+        "properties": {
+          "createdBy": {
+            "type": "string"
+          },
+          "company": {
+            "type": "string"
+          },
+          "position": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "stage": {
+            "type": "string",
+            "enum": ["Saved", "Applied", "Interview", "Offer"]
+          },
+          "type": {
+            "type": ["string", "null"],
+            "enum": ["On-site", "Hybrid", "Remote"]
+          },
+          "salary": {
+            "type": ["integer", "null"],
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991
+          },
+          "companyUrl": {
+            "type": ["string", "null"]
+          },
+          "applicationUrl": {
+            "type": ["string", "null"]
+          },
+          "interviewDate": {
+            "type": ["string", "null"]
+          },
+          "interviewType": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": ["createdBy", "company", "position", "location", "stage"]
+      }
+    },
+    "parameters": {}
+  },
+  "paths": {
+    "/api/jobs": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Retrieve all jobs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "info": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Job"
+                      }
+                    }
+                  },
+                  "required": ["info", "data"]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateJob"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create a new job",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/jobs/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string",
+              "example": "some-job-id"
+            },
+            "required": true,
+            "name": "id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieve a job by ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "info": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Job"
+                    }
+                  },
+                  "required": ["info", "data"]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Job not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {}
+}

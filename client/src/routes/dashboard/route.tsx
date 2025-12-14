@@ -1,15 +1,12 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router';
 import Cookies from 'js-cookie';
-import { ThemeSwitcher } from '@/components/shared/theme-switcher';
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger
-} from '@/components/ui/sidebar';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { DashboardNavbar } from './-components/navbar';
 import { DashboardSidebar } from './-components/sidebar';
 
 export const Route = createFileRoute('/dashboard')({
-  component: RouteComponent
+  component: RouteComponent,
+  loader: () => ({ crumb: 'Dashboard' })
 });
 
 function RouteComponent() {
@@ -18,9 +15,8 @@ function RouteComponent() {
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
       <DashboardSidebar />
-      <SidebarInset>
-        <SidebarTrigger />
-        <ThemeSwitcher />
+      <SidebarInset className="p-2">
+        <DashboardNavbar />
         <Outlet />
       </SidebarInset>
     </SidebarProvider>
