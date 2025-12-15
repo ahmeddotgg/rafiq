@@ -12,7 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
-import { Route as DashboardJobsRouteImport } from './routes/dashboard/jobs'
+import { Route as DashboardJobsRouteRouteImport } from './routes/dashboard/jobs/route'
+import { Route as DashboardJobsIndexRouteImport } from './routes/dashboard/jobs/index'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
@@ -29,36 +30,54 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-const DashboardJobsRoute = DashboardJobsRouteImport.update({
+const DashboardJobsRouteRoute = DashboardJobsRouteRouteImport.update({
   id: '/jobs',
   path: '/jobs',
   getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardJobsIndexRoute = DashboardJobsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardJobsRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
-  '/dashboard/jobs': typeof DashboardJobsRoute
+  '/dashboard/jobs': typeof DashboardJobsRouteRouteWithChildren
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/jobs/': typeof DashboardJobsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/dashboard/jobs': typeof DashboardJobsRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/jobs': typeof DashboardJobsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
-  '/dashboard/jobs': typeof DashboardJobsRoute
+  '/dashboard/jobs': typeof DashboardJobsRouteRouteWithChildren
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/jobs/': typeof DashboardJobsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/dashboard/jobs' | '/dashboard/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/dashboard/jobs'
+    | '/dashboard/'
+    | '/dashboard/jobs/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard/jobs' | '/dashboard'
-  id: '__root__' | '/' | '/dashboard' | '/dashboard/jobs' | '/dashboard/'
+  to: '/' | '/dashboard' | '/dashboard/jobs'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/dashboard/jobs'
+    | '/dashboard/'
+    | '/dashboard/jobs/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -93,19 +112,37 @@ declare module '@tanstack/react-router' {
       id: '/dashboard/jobs'
       path: '/jobs'
       fullPath: '/dashboard/jobs'
-      preLoaderRoute: typeof DashboardJobsRouteImport
+      preLoaderRoute: typeof DashboardJobsRouteRouteImport
       parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/jobs/': {
+      id: '/dashboard/jobs/'
+      path: '/'
+      fullPath: '/dashboard/jobs/'
+      preLoaderRoute: typeof DashboardJobsIndexRouteImport
+      parentRoute: typeof DashboardJobsRouteRoute
     }
   }
 }
 
+interface DashboardJobsRouteRouteChildren {
+  DashboardJobsIndexRoute: typeof DashboardJobsIndexRoute
+}
+
+const DashboardJobsRouteRouteChildren: DashboardJobsRouteRouteChildren = {
+  DashboardJobsIndexRoute: DashboardJobsIndexRoute,
+}
+
+const DashboardJobsRouteRouteWithChildren =
+  DashboardJobsRouteRoute._addFileChildren(DashboardJobsRouteRouteChildren)
+
 interface DashboardRouteRouteChildren {
-  DashboardJobsRoute: typeof DashboardJobsRoute
+  DashboardJobsRouteRoute: typeof DashboardJobsRouteRouteWithChildren
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
-  DashboardJobsRoute: DashboardJobsRoute,
+  DashboardJobsRouteRoute: DashboardJobsRouteRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 

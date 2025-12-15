@@ -67,7 +67,7 @@ export function DashboardSidebar() {
                 render={
                   <Link
                     to="/dashboard/jobs"
-                    activeOptions={{ exact: true, includeSearch: false }}
+                    activeOptions={{ exact: false, includeSearch: false }}
                   >
                     <HugeiconsIcon icon={JobSearchIcon} strokeWidth={2.6} />
                     <span>Jobs</span>

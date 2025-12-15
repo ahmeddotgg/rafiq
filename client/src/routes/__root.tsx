@@ -3,6 +3,7 @@ import type { QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools';
 import {
   createRootRouteWithContext,
+  HeadContent,
   Link,
   Outlet
 } from '@tanstack/react-router';
@@ -14,6 +15,17 @@ export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
 }>()({
   component: RootComponent,
+  head: () => ({
+    meta: [
+      {
+        name: 'description',
+        content: 'My App is a web application'
+      },
+      {
+        title: 'Rafiq - Life Discovery'
+      }
+    ]
+  }),
   notFoundComponent: () => {
     return (
       <div>
@@ -29,6 +41,7 @@ export const Route = createRootRouteWithContext<{
 function RootComponent() {
   return (
     <>
+      <HeadContent />
       <ThemeProvider>
         <Outlet />
       </ThemeProvider>

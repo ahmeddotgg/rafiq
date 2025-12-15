@@ -6,7 +6,14 @@ import { DashboardSidebar } from './-components/sidebar';
 
 export const Route = createFileRoute('/dashboard')({
   component: RouteComponent,
-  loader: () => ({ crumb: 'Dashboard' })
+  loader: () => ({ crumb: 'Dashboard' }),
+  head: () => ({
+    meta: [
+      {
+        title: 'Dashboard - Rafiq'
+      }
+    ]
+  })
 });
 
 function RouteComponent() {
