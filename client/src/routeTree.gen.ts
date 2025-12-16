@@ -13,7 +13,8 @@ import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as DashboardJobsRouteRouteImport } from './routes/dashboard/jobs/route'
-import { Route as DashboardJobsIndexRouteImport } from './routes/dashboard/jobs/index'
+import { Route as DashboardJobsChar123idChar125_modalRouteImport } from './routes/dashboard/jobs/{$id}_modal'
+import { Route as DashboardJobsIdRouteImport } from './routes/dashboard/jobs/$id'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
@@ -35,9 +36,15 @@ const DashboardJobsRouteRoute = DashboardJobsRouteRouteImport.update({
   path: '/jobs',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-const DashboardJobsIndexRoute = DashboardJobsIndexRouteImport.update({
-  id: '/',
-  path: '/',
+const DashboardJobsChar123idChar125_modalRoute =
+  DashboardJobsChar123idChar125_modalRouteImport.update({
+    id: '/{$id}_modal',
+    path: '/{$id}_modal',
+    getParentRoute: () => DashboardJobsRouteRoute,
+  } as any)
+const DashboardJobsIdRoute = DashboardJobsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
   getParentRoute: () => DashboardJobsRouteRoute,
 } as any)
 
@@ -46,12 +53,15 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/dashboard/jobs': typeof DashboardJobsRouteRouteWithChildren
   '/dashboard/': typeof DashboardIndexRoute
-  '/dashboard/jobs/': typeof DashboardJobsIndexRoute
+  '/dashboard/jobs/$id': typeof DashboardJobsIdRoute
+  '/dashboard/jobs/{$id}_modal': typeof DashboardJobsChar123idChar125_modalRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard/jobs': typeof DashboardJobsRouteRouteWithChildren
   '/dashboard': typeof DashboardIndexRoute
-  '/dashboard/jobs': typeof DashboardJobsIndexRoute
+  '/dashboard/jobs/$id': typeof DashboardJobsIdRoute
+  '/dashboard/jobs/{$id}_modal': typeof DashboardJobsChar123idChar125_modalRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -59,7 +69,8 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteRouteWithChildren
   '/dashboard/jobs': typeof DashboardJobsRouteRouteWithChildren
   '/dashboard/': typeof DashboardIndexRoute
-  '/dashboard/jobs/': typeof DashboardJobsIndexRoute
+  '/dashboard/jobs/$id': typeof DashboardJobsIdRoute
+  '/dashboard/jobs/{$id}_modal': typeof DashboardJobsChar123idChar125_modalRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -68,16 +79,23 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/dashboard/jobs'
     | '/dashboard/'
-    | '/dashboard/jobs/'
+    | '/dashboard/jobs/$id'
+    | '/dashboard/jobs/{$id}_modal'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/dashboard/jobs'
+  to:
+    | '/'
+    | '/dashboard/jobs'
+    | '/dashboard'
+    | '/dashboard/jobs/$id'
+    | '/dashboard/jobs/{$id}_modal'
   id:
     | '__root__'
     | '/'
     | '/dashboard'
     | '/dashboard/jobs'
     | '/dashboard/'
-    | '/dashboard/jobs/'
+    | '/dashboard/jobs/$id'
+    | '/dashboard/jobs/{$id}_modal'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -115,22 +133,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardJobsRouteRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/jobs/': {
-      id: '/dashboard/jobs/'
-      path: '/'
-      fullPath: '/dashboard/jobs/'
-      preLoaderRoute: typeof DashboardJobsIndexRouteImport
+    '/dashboard/jobs/{$id}_modal': {
+      id: '/dashboard/jobs/{$id}_modal'
+      path: '/{$id}_modal'
+      fullPath: '/dashboard/jobs/{$id}_modal'
+      preLoaderRoute: typeof DashboardJobsChar123idChar125_modalRouteImport
+      parentRoute: typeof DashboardJobsRouteRoute
+    }
+    '/dashboard/jobs/$id': {
+      id: '/dashboard/jobs/$id'
+      path: '/$id'
+      fullPath: '/dashboard/jobs/$id'
+      preLoaderRoute: typeof DashboardJobsIdRouteImport
       parentRoute: typeof DashboardJobsRouteRoute
     }
   }
 }
 
 interface DashboardJobsRouteRouteChildren {
-  DashboardJobsIndexRoute: typeof DashboardJobsIndexRoute
+  DashboardJobsIdRoute: typeof DashboardJobsIdRoute
+  DashboardJobsChar123idChar125_modalRoute: typeof DashboardJobsChar123idChar125_modalRoute
 }
 
 const DashboardJobsRouteRouteChildren: DashboardJobsRouteRouteChildren = {
-  DashboardJobsIndexRoute: DashboardJobsIndexRoute,
+  DashboardJobsIdRoute: DashboardJobsIdRoute,
+  DashboardJobsChar123idChar125_modalRoute:
+    DashboardJobsChar123idChar125_modalRoute,
 }
 
 const DashboardJobsRouteRouteWithChildren =
