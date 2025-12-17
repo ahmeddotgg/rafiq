@@ -240,7 +240,7 @@
           }
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "Create a new job",
             "content": {
               "application/json": {
@@ -266,6 +266,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ValidationError"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }

@@ -21,7 +21,7 @@ export function DashboardNavbar() {
     }));
 
   return (
-    <div className="flex items-center gap-2 py-2">
+    <div className="flex items-center gap-2 border-b p-4 shadow">
       <SidebarTrigger />
       <div className="flex-1">
         <Breadcrumb className="hidden sm:flex">

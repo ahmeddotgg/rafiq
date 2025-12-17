@@ -44,13 +44,26 @@ jobs.openapi(
   async (c) => {
     const data = c.req.valid('json');
 
-    return c.json(
-      {
-        info: 'success',
-        data: data
-      },
-      200
-    );
+    try {
+      const job = await JobsServices.store(data);
+
+      return c.json(
+        {
+          info: 'success',
+          data: job
+        },
+        201
+      );
+    } catch (error) {
+      console.log(error);
+      return c.json(
+        {
+          info: 'error',
+          error: 'Internal server error'
+        },
+        500
+      );
+    }
   },
   (result, c) => {
     if (!result.success) {

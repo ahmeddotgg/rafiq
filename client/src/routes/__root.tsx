@@ -9,6 +9,7 @@ import {
 } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import { buttonVariants } from '@/components/ui/button';
+import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider } from '@/store/theme';
 
 export const Route = createRootRouteWithContext<{
@@ -44,6 +45,7 @@ function RootComponent() {
       <HeadContent />
       <ThemeProvider>
         <Outlet />
+        <Toaster />
       </ThemeProvider>
       {import.meta.env.DEV && (
         <TanStackDevtools

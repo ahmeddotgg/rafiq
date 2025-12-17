@@ -50,7 +50,7 @@ export interface paths {
       };
       responses: {
         /** @description Create a new job */
-        200: {
+        201: {
           headers: {
             [name: string]: unknown;
           };
@@ -74,6 +74,15 @@ export interface paths {
           };
           content: {
             'application/json': components['schemas']['ValidationError'];
+          };
+        };
+        /** @description Internal server error */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['Error'];
           };
         };
       };

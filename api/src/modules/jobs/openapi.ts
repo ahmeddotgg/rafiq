@@ -70,7 +70,7 @@ export const createJobRoute = createRoute({
     }
   },
   responses: {
-    200: {
+    201: {
       content: {
         'application/json': {
           schema: JobsModel.SuccessSchema
@@ -93,6 +93,14 @@ export const createJobRoute = createRoute({
         }
       },
       description: 'Validation error'
+    },
+    500: {
+      content: {
+        'application/json': {
+          schema: JobsModel.ErrorSchema
+        }
+      },
+      description: 'Internal server error'
     }
   }
 });

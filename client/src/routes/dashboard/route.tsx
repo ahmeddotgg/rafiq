@@ -22,7 +22,7 @@ function RouteComponent() {
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
       <DashboardSidebar />
-      <SidebarInset className="p-2">
+      <SidebarInset>
         <DashboardNavbar />
         <Outlet />
       </SidebarInset>

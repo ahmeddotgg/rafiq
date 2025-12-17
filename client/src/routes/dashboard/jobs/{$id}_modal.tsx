@@ -69,7 +69,7 @@ function RouteComponent() {
               )}
             </li>
           </div>
-          <div className="space-y-2 [*>&_svg]:size-5 [*>&_svg]:text-muted-foreground">
+          <div className="space-y-3 [*>&_svg]:size-5 [*>&_svg]:text-muted-foreground">
             <li className="flex items-center">
               <HugeiconsIcon icon={Location09Icon} />
               <span className="font-medium">: {data.location}</span>
@@ -80,11 +80,11 @@ function RouteComponent() {
                 :
                 {data.salary
                   ? ` $${data.salary.toLocaleString()}`
-                  : 'Not specified'}
+                  : ' Not specified'}
               </span>
             </li>
             <br />
-            <li className="space-x-2">
+            <li className="flex items-center gap-2">
               <Badge
                 variant={
                   data.stage === 'Offer'
@@ -99,7 +99,7 @@ function RouteComponent() {
                 {data.stage}
               </Badge>
 
-              <Badge variant="secondary">{data.type}</Badge>
+              {data.type && <Badge variant="secondary">{data.type}</Badge>}
             </li>
           </div>
         </ul>
@@ -107,10 +107,7 @@ function RouteComponent() {
         {data.interviewDate && (
           <>
             <div>
-              <strong>Interview Date:</strong>{' '}
-              {data.interviewDate
-                ? new Date(data.interviewDate).toLocaleDateString()
-                : 'Not set'}
+              <strong>Interview Date:</strong> {data.interviewDate}
             </div>
             <div>
               <strong>Interview Type:</strong> {data.interviewType || 'N/A'}

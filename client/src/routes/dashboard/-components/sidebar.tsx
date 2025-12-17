@@ -13,6 +13,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarSeparator,
   useSidebar
 } from '@/components/ui/sidebar';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -38,7 +39,7 @@ export function DashboardSidebar() {
           }
         />
       </SidebarHeader>
-
+      <SidebarSeparator />
       <SidebarContent>
         <SidebarGroup>
           <SidebarMenu>

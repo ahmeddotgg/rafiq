@@ -8,7 +8,7 @@ import { createRoot } from 'react-dom/client';
 import { routeTree } from './routeTree.gen.ts';
 import './index.css';
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 const router = createRouter({
   routeTree,

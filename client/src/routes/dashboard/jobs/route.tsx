@@ -2,7 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
 import { buttonVariants } from '@/components/ui/button';
 import { allJobsQuery } from '@/modules/jobs/api';
-import { CreateJobDialog } from '@/modules/jobs/components/create-job-dialog';
+import { JobForm } from '@/modules/jobs/components/job-form';
 
 export const Route = createFileRoute('/dashboard/jobs')({
   component: RouteComponent,
@@ -31,7 +31,7 @@ function RouteComponent() {
             Keep Your Job Search Organized
           </p>
         </div>
-        <CreateJobDialog />
+        <JobForm />
       </header>
 
       <div>
