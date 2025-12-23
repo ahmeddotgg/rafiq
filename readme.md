@@ -63,3 +63,4 @@ This will start both the client and server concurrently.
 - Push schema: `bun run db:push`
 - Seed data: `bun run db:seed`
 - Open Drizzle Studio: `bun run db:studio`
+- test
